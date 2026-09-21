@@ -1083,9 +1083,7 @@ BETTER:
 
 The reader should understand the main point without reading the source article.
 
-At the end, add the original source URL on a separate line in this exact format:
 
-Источник: <URL>
 
 Return ONLY the finished Telegram post.
 
