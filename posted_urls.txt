@@ -5,3 +5,4 @@ https://www.theverge.com/tech/996078/snap-specs-intelligence-ai-agent-ios-mac
 https://techcrunch.com/2026/09/16/iceland-based-treble-raises-18-million-for-its-voice-simulation-platform/
 https://huggingface.co/blog/ibm-research/altk-evolve-consistency
 https://spectrum.ieee.org/llms-for-chip-design
+https://huggingface.co/blog/asyncgrpo-lora-hfjobs
