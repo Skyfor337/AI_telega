@@ -7,3 +7,4 @@ https://huggingface.co/blog/ibm-research/altk-evolve-consistency
 https://spectrum.ieee.org/llms-for-chip-design
 https://huggingface.co/blog/asyncgrpo-lora-hfjobs
 https://www.techmeme.com/260921/p9
+https://habr.com/ru/news/1084584
