@@ -6,3 +6,4 @@ https://techcrunch.com/2026/09/16/iceland-based-treble-raises-18-million-for-its
 https://huggingface.co/blog/ibm-research/altk-evolve-consistency
 https://spectrum.ieee.org/llms-for-chip-design
 https://huggingface.co/blog/asyncgrpo-lora-hfjobs
+https://www.techmeme.com/260921/p9
