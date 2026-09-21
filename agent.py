@@ -1084,7 +1084,6 @@ BETTER:
 The reader should understand the main point without reading the source article.
 
 
-
 Return ONLY the finished Telegram post.
 
 SOURCE:
