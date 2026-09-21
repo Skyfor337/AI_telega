@@ -727,7 +727,6 @@ def filter_unposted_news(
 
     return fresh
 
-
 def build_shortlist_prompt(news):
     blocks = []
 
@@ -749,93 +748,134 @@ def build_shortlist_prompt(news):
     joined = "\n".join(blocks)
 
     prompt = f"""
-You are an editor of a popular Russian Telegram channel about AI, technology and the modern digital world.
-Your task is to select the most interesting news stories from the provided RSS feed.
-The channel is NOT a technical engineering channel and NOT a developer news channel.
-The target audience is ordinary people who are interested in technology, AI, gadgets, smartphones, computers and major technology companies, but who may have no technical background.
-The main question you should ask about every story is:
-"Would a normal technology-interested person want to open this post, read it and tell a friend about it?"
+You are the first-stage editor of a popular Russian Telegram
+channel about AI, technology, gadgets and the modern digital
+world.
+
+You are given a large list of recent RSS stories.
+
+Your task is to select up to {MAX_SHORTLIST} stories that
+deserve a deeper review.
+
+The channel is NOT a technical engineering channel and NOT
+a developer-only news channel.
+
+The target audience is broad. Readers may be interested
+in technology and AI but may have no technical background.
+
+The main question is:
+
+"Would a normal technology-interested person want to open
+this story and tell a friend about it?"
 
 Prioritize stories that are:
-- about major technology companies such as OpenAI, Google, Microsoft, Apple, NVIDIA, Meta, Amazon, Samsung, Xiaomi and similar companies
-- about new AI models, AI assistants, ChatGPT, Gemini, Claude, DeepSeek and other widely known AI products
+
+- about major technology companies such as OpenAI, Google,
+  Microsoft, Apple, NVIDIA, Meta, Amazon, Samsung, Xiaomi
+  and similar companies
+- about new AI models, AI assistants, ChatGPT, Gemini,
+  Claude, DeepSeek and other widely known AI products
 - about major product launches
 - about new features in popular services
 - about technologies that ordinary users can actually use
-- about smartphones, computers, laptops, smart glasses, robots, cars, gadgets and other consumer technology
+- about smartphones, computers, laptops, smart glasses,
+  robots, cars, gadgets and consumer technology
 - about surprising or unusual technological capabilities
-- about major technological breakthroughs that can be explained simply
-- about important changes that may affect how people use technology
-- about major acquisitions, partnerships or industry events when they have clear technological significance
-- about viral or highly interesting technology stories
-- about events that create a strong "wow, I didn't know technology could do that" reaction
-- about news that is easy to understand without specialized knowledge
+- about major technological breakthroughs that can be
+  explained simply
+- about important changes that may affect how people use
+  technology
+- about major acquisitions or partnerships when they have
+  clear technological significance
+- about interesting and unusual technology stories
+- about news with a strong "wow" or curiosity factor
+- about stories that can be explained clearly in a short
+  Telegram post
 
-A story does NOT have to be technically complex to be valuable.
-Broad audience appeal and real-world impact are more important than technical depth.
-A non-expert should be able to understand why the story matters after reading the first two sentences of the future Telegram post.
+A story does NOT need to be technically complex to be valuable.
+
+Broad audience appeal and real-world impact are more
+important than technical depth.
+
+A non-expert reader should be able to understand why the
+story matters without specialized knowledge.
+
 PRIORITY ORDER:
 
-1. Major news from important technology companies
-2. Major AI model or AI product releases
-3. New capabilities that ordinary users can understand
-4. Major consumer technology and gadgets
-5. Robots, autonomous vehicles and other visible technologies
-6. Important changes to popular technology services
-7. Surprising technological discoveries or breakthroughs
-8. Interesting technology research with a clear practical impact
-9. Interesting developer or engineering news only if it has broad relevance
+1. Major news from important technology companies.
+2. Major AI model or AI product releases.
+3. New capabilities that ordinary users can understand.
+4. Major consumer technology and gadgets.
+5. Robots, autonomous vehicles and other visible technologies.
+6. Important changes to popular technology services.
+7. Surprising technological discoveries or breakthroughs.
+8. Interesting research with clear practical impact.
+9. Developer or engineering news only when it has broad
+   relevance.
 
 LOW PRIORITY:
-- small developer tools
-- minor framework updates
-- small software releases
+
+- narrow developer tools
+- small framework updates
 - minor benchmark improvements
 - narrow programming news
-- highly specialized engineering details
-- academic papers without an obvious practical impact
+- academic papers without obvious practical impact
 - routine funding announcements
 - routine corporate announcements
 - conference announcements without an important announcement
-- technical infrastructure changes that ordinary users will not notice
+- highly specialized engineering details
+- technical infrastructure changes that ordinary users
+  will not notice
 - small startup news without broader technological significance
 - generic business news
 - opinion articles
 - editorials
 - tutorials
 - how-to articles
-- product reviews unless the review itself contains an important newsworthy discovery
+- product reviews unless they contain an important
+  newsworthy discovery
 
 REJECT stories that are:
+
 - mostly opinions
 - mostly speculation
 - clickbait without a meaningful technological event
-- repetitive versions of stories that are already represented by another candidate
+- repetitive versions of another candidate
 - extremely narrow or difficult to understand
-- purely financial or corporate without meaningful technology impact
+- purely financial or corporate without meaningful
+  technology impact
 - old news presented as new
 - stories where the actual technological event is unclear
 
 IMPORTANT:
 
 Do NOT automatically prefer technically sophisticated stories.
-For example, a simple story about a new ChatGPT feature used by millions of people can be much more valuable than a technically impressive but extremely narrow machine-learning research result.
+
+A simple story about a new ChatGPT feature used by millions
+of people can be much more valuable than a technically
+impressive but extremely narrow machine-learning research
+result.
+
 Prefer concrete events over abstract analysis.
+
 Prefer "something happened" over "someone discussed something".
-Prefer stories that can be explained in 2-4 short paragraphs.
-Prefer news that has a clear subject, a clear event and a clear reason why readers should care.
-The final selection should feel like a feed from a large popular technology channel, not like a feed for software engineers or AI researchers.
-Return ONLY a JSON array with up to 6 selected stories.
-Each item must contain:
 
-{
-  "index": <original article index>,
-  "reason": "<short explanation in English>"
-}
+Prefer stories with a clear subject, a clear event and a clear
+reason why readers should care.
 
-Do not invent articles.
-Do not modify article indices.
-Do not include any text outside the JSON array.
+The final selection should feel like a feed from a large
+popular technology channel, not a feed for software engineers
+or AI researchers.
+
+Use ONLY the information visible in the provided RSS data.
+
+Do not invent facts.
+
+Return ONLY JSON matching the requested response schema.
+
+Return the indices of the best {MAX_SHORTLIST} candidates,
+or fewer if fewer than {MAX_SHORTLIST} stories are genuinely
+interesting.
 
 NEWS:
 
@@ -843,6 +883,7 @@ NEWS:
 """
 
     return prompt
+
 
 
 def build_selection_prompt(
