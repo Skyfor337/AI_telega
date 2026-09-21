@@ -1,0 +1,7 @@
+https://arstechnica.com/ai/2026/09/apple-reportedly-building-server-packed-with-m-series-ultra-chips-for-ai/
+https://www.wired.com/story/openai-releases-new-policy-for-reporting-incidents-of-model-misalignment/
+https://developer.nvidia.com/blog/introducing-cuda-rust-two-tracks-for-writing-gpu-kernels/
+https://www.theverge.com/tech/996078/snap-specs-intelligence-ai-agent-ios-mac
+https://techcrunch.com/2026/09/16/iceland-based-treble-raises-18-million-for-its-voice-simulation-platform/
+https://huggingface.co/blog/ibm-research/altk-evolve-consistency
+https://spectrum.ieee.org/llms-for-chip-design
