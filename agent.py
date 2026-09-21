@@ -32,7 +32,7 @@ GEMINI_MODEL = "gemini-3.5-flash-lite"
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 
-TELEGRAM_CHANNEL = os.getenv("TELEGRAM_CHANNEL", "@test_for_my_project")
+TELEGRAM_CHANNEL = os.getenv("TELEGRAM_CHANNEL")
 
 TELEGRAM_API_URL = (
     f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}"

@@ -1,0 +1,7 @@
+feedparser
+requests
+trafilatura
+beautifulsoup4
+Pillow
+pydantic
+google-genai
