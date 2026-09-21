@@ -144,6 +144,15 @@ RSS_SOURCES = {
     "IEEE Spectrum AI": (
         "https://spectrum.ieee.org/feeds/topic/artificial-intelligence.rss"
     ),
+    "Habr News": (
+        "https://habr.com/ru/rss/news/?fl=ru"
+    ),
+    "3DNews": (
+        "https://3dnews.ru/news/rss/"
+    ),
+    "iXBT News": (
+        "https://www.ixbt.com/export/news.rss"
+    ),
 }
 
 
@@ -740,50 +749,93 @@ def build_shortlist_prompt(news):
     joined = "\n".join(blocks)
 
     prompt = f"""
-You are the first-stage editor of a Russian Telegram
-channel focused on artificial intelligence, software,
-hardware, robotics, developer tools and important
-technology news.
+You are an editor of a popular Russian Telegram channel about AI, technology and the modern digital world.
+Your task is to select the most interesting news stories from the provided RSS feed.
+The channel is NOT a technical engineering channel and NOT a developer news channel.
+The target audience is ordinary people who are interested in technology, AI, gadgets, smartphones, computers and major technology companies, but who may have no technical background.
+The main question you should ask about every story is:
+"Would a normal technology-interested person want to open this post, read it and tell a friend about it?"
 
-You are given a large list of recent RSS stories.
+Prioritize stories that are:
+- about major technology companies such as OpenAI, Google, Microsoft, Apple, NVIDIA, Meta, Amazon, Samsung, Xiaomi and similar companies
+- about new AI models, AI assistants, ChatGPT, Gemini, Claude, DeepSeek and other widely known AI products
+- about major product launches
+- about new features in popular services
+- about technologies that ordinary users can actually use
+- about smartphones, computers, laptops, smart glasses, robots, cars, gadgets and other consumer technology
+- about surprising or unusual technological capabilities
+- about major technological breakthroughs that can be explained simply
+- about important changes that may affect how people use technology
+- about major acquisitions, partnerships or industry events when they have clear technological significance
+- about viral or highly interesting technology stories
+- about events that create a strong "wow, I didn't know technology could do that" reaction
+- about news that is easy to understand without specialized knowledge
 
-Your task is to select up to {MAX_SHORTLIST} stories
-that deserve a deeper review.
+A story does NOT have to be technically complex to be valuable.
+Broad audience appeal and real-world impact are more important than technical depth.
+A non-expert should be able to understand why the story matters after reading the first two sentences of the future Telegram post.
+PRIORITY ORDER:
 
-Do NOT write posts yet.
+1. Major news from important technology companies
+2. Major AI model or AI product releases
+3. New capabilities that ordinary users can understand
+4. Major consumer technology and gadgets
+5. Robots, autonomous vehicles and other visible technologies
+6. Important changes to popular technology services
+7. Surprising technological discoveries or breakthroughs
+8. Interesting technology research with a clear practical impact
+9. Interesting developer or engineering news only if it has broad relevance
 
-Prioritize stories with:
-
-- a concrete technological event
-- a product or model launch
-- a major research result
-- a meaningful security or engineering development
-- an unusual technical discovery
-- important changes in AI or computing
-- strong potential interest for a technology audience
-- enough substance for a short Telegram post
-
-Avoid:
-
-- generic business articles
+LOW PRIORITY:
+- small developer tools
+- minor framework updates
+- small software releases
+- minor benchmark improvements
+- narrow programming news
+- highly specialized engineering details
+- academic papers without an obvious practical impact
 - routine funding announcements
-- lifestyle content
-- celebrity content
-- ordinary political news
-- generic opinion pieces
-- weak clickbait
-- unrelated medical stories
-- stories with almost no technical substance
+- routine corporate announcements
+- conference announcements without an important announcement
+- technical infrastructure changes that ordinary users will not notice
+- small startup news without broader technological significance
+- generic business news
+- opinion articles
+- editorials
+- tutorials
+- how-to articles
+- product reviews unless the review itself contains an important newsworthy discovery
 
-Do not select stories merely because the source is famous.
+REJECT stories that are:
+- mostly opinions
+- mostly speculation
+- clickbait without a meaningful technological event
+- repetitive versions of stories that are already represented by another candidate
+- extremely narrow or difficult to understand
+- purely financial or corporate without meaningful technology impact
+- old news presented as new
+- stories where the actual technological event is unclear
 
-Use only the information visible in the provided RSS data.
+IMPORTANT:
 
-Return ONLY JSON matching the requested schema.
+Do NOT automatically prefer technically sophisticated stories.
+For example, a simple story about a new ChatGPT feature used by millions of people can be much more valuable than a technically impressive but extremely narrow machine-learning research result.
+Prefer concrete events over abstract analysis.
+Prefer "something happened" over "someone discussed something".
+Prefer stories that can be explained in 2-4 short paragraphs.
+Prefer news that has a clear subject, a clear event and a clear reason why readers should care.
+The final selection should feel like a feed from a large popular technology channel, not like a feed for software engineers or AI researchers.
+Return ONLY a JSON array with up to 6 selected stories.
+Each item must contain:
 
-Return the indices of the best {MAX_SHORTLIST} candidates
-or fewer if fewer than {MAX_SHORTLIST} stories are genuinely
-interesting.
+{
+  "index": <original article index>,
+  "reason": "<short explanation in English>"
+}
+
+Do not invent articles.
+Do not modify article indices.
+Do not include any text outside the JSON array.
 
 NEWS:
 
@@ -832,43 +884,81 @@ def build_selection_prompt(
     joined = "\n".join(blocks)
 
     prompt = f"""
-You are the senior editor of a Russian Telegram channel
-about AI, IT and modern technology.
+You are the final editor of a popular Russian Telegram channel about AI, technology and the modern digital world.
 
-Choose exactly ONE story from the candidates below.
+You must choose exactly ONE news story from the provided candidates.
 
-Evaluate the stories by:
+The channel targets a broad audience interested in technology, AI, gadgets and major technology companies.
 
-1. Relevance to an AI and technology audience.
-2. Importance of the actual event.
-3. Novelty.
-4. Technical substance.
-5. Potential reader interest.
-6. Potential for a concise and informative Telegram post.
-7. Whether the story contains a concrete event, release,
-   discovery, research result or meaningful development.
+The reader does not need to be a programmer or engineer.
 
-Prefer a specific technical development over generic
-corporate news.
+Choose the story that has the strongest combination of:
 
-Avoid stories that are mainly:
+1. Broad audience appeal
+2. Real-world impact
+3. Clear and understandable news event
+4. Novelty and timeliness
+5. Importance of the company, product or technology involved
+6. "Wow" or curiosity factor
+7. Potential to be explained clearly in a short Telegram post
+8. Source quality and reliability
+9. Technical substance only as a secondary factor
 
-- politics
-- lifestyle
-- celebrity content
-- generic management advice
-- routine business commentary
-- unrelated medical news
+The most technically complex story is NOT automatically the best story.
 
-Do not invent facts.
-Do not use information that is not present in the source text.
+A major new AI feature, smartphone, robot, gadget or product launch can be more suitable than a highly specialized engineering or research story.
 
-Choose based on the actual content, not the reputation of
-the source.
+Prefer stories where the reader can immediately understand:
 
-Return ONLY JSON matching the requested schema.
+- what happened
+- what is new
+- why it matters
+- who may be affected
 
-The selected_index must refer to one of the candidates.
+Strongly prefer:
+
+- OpenAI / ChatGPT news
+- Google / Gemini news
+- Microsoft news
+- Apple news
+- NVIDIA news
+- Meta news
+- Amazon news
+- Samsung news
+- Xiaomi and other major consumer technology companies
+- major AI model releases
+- new AI capabilities
+- popular AI products
+- smartphones and computers
+- robots
+- smart glasses
+- autonomous vehicles
+- major gadgets
+- important changes to popular services
+- unusual technological achievements
+- technologies that may become widely used
+
+Lower priority:
+
+- narrow developer tools
+- minor framework updates
+- benchmarks
+- academic papers without practical impact
+- routine funding
+- small startups
+- highly specialized engineering
+- technical infrastructure
+- generic corporate announcements
+- opinion and analysis
+
+Do NOT choose a story simply because it sounds technically impressive.
+
+Choose the story most likely to make a broad technology audience stop scrolling and read the post.
+
+Return ONLY the zero-based index of the selected candidate.
+
+Example:
+3
 
 CANDIDATES:
 
@@ -897,71 +987,66 @@ def build_post_prompt(article):
         )
 
     prompt = f"""
-You are an experienced editor writing for a Russian Telegram
-channel about AI, IT and modern technology.
+You are a Russian-language editor for a popular Telegram channel about AI, technology, gadgets and the modern digital world.
 
-Write one finished Telegram news post based ONLY on the
-source material below.
+Write a short Telegram news post based ONLY on the provided article information.
 
-The final post must be factually grounded in the source.
+The audience is broad.
 
-Language:
-Russian.
+Readers may know very little about technology, AI or programming.
 
-Writing style:
-- natural
-- concise
-- informative
-- clear
-- human
-- suitable for a technology Telegram channel
+The post must feel like an interesting news story from a popular technology channel, not like a technical article.
 
-The reader should immediately understand:
+FIRST explain what happened.
 
-1. What happened.
-2. What is technically interesting about it.
-3. Why the event matters.
+THEN explain what is new or unusual.
 
-Write 2 to 4 connected paragraphs.
+THEN explain why it matters to ordinary users or to the technology industry.
 
-Do NOT use bullet points.
-Do NOT use numbered lists.
-Do NOT use a dry list of facts.
-Do NOT write like a corporate press release.
-Do NOT begin with phrases such as:
-"According to reports..."
-"Recently it became known..."
-"Experts say..."
-unless the source explicitly contains such a statement
-and it is important.
+Use technical details only when they help explain the story.
 
-Do not repeat the same fact several times.
+Avoid unnecessary technical terminology.
 
-Do not invent:
-- numbers
-- dates
-- people
-- companies
-- technical details
-- conclusions
-- causes
-- quotes
+If a technical term is necessary, explain it in simple Russian.
 
-Use only information supported by the source.
+The post should be interesting even to someone who is not a programmer.
 
-The title must be short, specific and interesting.
-Avoid clickbait that changes the meaning of the story.
+STYLE:
 
-The post itself should normally be around 500 to 800
-characters in Russian.
+- Russian language
+- 2-4 short paragraphs
+- approximately 500-800 characters
+- maximum 2 emojis
+- natural modern Russian
+- concise and informative
+- no excessive hype
+- no clickbait
+- no generic introduction
+- no "according to experts" unless the source explicitly says so
+- no invented facts
+- no speculation presented as fact
+- do not copy sentences from the source
+- paraphrase the information in your own words
 
-Use at most 2 emojis and only when they fit naturally.
+The first sentence should immediately tell the reader what happened.
 
-Do not include the source name or URL in the post body.
-Those will be added separately by the program.
+Prefer concrete wording.
 
-Do not include Markdown.
-Do not include HTML.
+BAD:
+
+"Компания представила новую мультимодальную foundation model с улучшенными возможностями обработки различных типов данных."
+
+BETTER:
+
+"Google представила новую версию Gemini, которая стала лучше работать сразу с текстом, изображениями и видео."
+
+The reader should understand the main point without reading the source article.
+
+At the end, add the original source URL on a separate line in this exact format:
+
+Источник: <URL>
+
+Return ONLY the finished Telegram post.
 
 SOURCE:
 {article['source']}
