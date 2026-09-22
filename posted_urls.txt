@@ -13,3 +13,4 @@ https://3dnews.ru/1148800
 https://techcrunch.com/2026/09/21/metas-ai-agent-has-been-blocked-from-using-amazon-com
 https://techcrunch.com/2026/09/21/metas-muse-is-outpacing-chatgpts-early-mobile-launch
 https://www.wired.com/story/google-launches-googlebook-laptops
+https://arstechnica.com/security/2026/09/muse-metas-extraordinarily-privileged-ai-assistant-has-a-serious-0-day
