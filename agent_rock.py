@@ -8,6 +8,7 @@ import requests
 import telebot
 from google import genai
 from google.genai import types
+from prompt_rock import build_rock_prompt
 
 
 BASE_DIR = Path(__file__).resolve().parent
