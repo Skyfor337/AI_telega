@@ -1,8 +1,8 @@
-https://arstechnica.com/ai/2026/09/apple-reportedly-building-server-packed-with-m-series-ultra-chips-for-ai/
-https://www.wired.com/story/openai-releases-new-policy-for-reporting-incidents-of-model-misalignment/
-https://developer.nvidia.com/blog/introducing-cuda-rust-two-tracks-for-writing-gpu-kernels/
+https://arstechnica.com/ai/2026/09/apple-reportedly-building-server-packed-with-m-series-ultra-chips-for-ai
+https://www.wired.com/story/openai-releases-new-policy-for-reporting-incidents-of-model-misalignment
+https://developer.nvidia.com/blog/introducing-cuda-rust-two-tracks-for-writing-gpu-kernels
 https://www.theverge.com/tech/996078/snap-specs-intelligence-ai-agent-ios-mac
-https://techcrunch.com/2026/09/16/iceland-based-treble-raises-18-million-for-its-voice-simulation-platform/
+https://techcrunch.com/2026/09/16/iceland-based-treble-raises-18-million-for-its-voice-simulation-platform
 https://huggingface.co/blog/ibm-research/altk-evolve-consistency
 https://spectrum.ieee.org/llms-for-chip-design
 https://huggingface.co/blog/asyncgrpo-lora-hfjobs
@@ -26,3 +26,4 @@ https://techcrunch.com/2026/09/23/everything-new-coming-to-metas-ai-agent-muse
 https://www.theverge.com/tech/999750/muse-charm-meta-ai-hardware
 https://www.wired.com/story/googles-gemini-can-now-make-calls-for-you-on-pixel-phones
 https://www.androidauthority.com/gemini-live-avatar-3715280
+https://www.theverge.com/tech/1000443/qualcomms-new-elite-sound-chip-might-finally-deliver-the-wi-fi-earbud-dream
