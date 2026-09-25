@@ -28,7 +28,7 @@ jobs:
       - name: Run rock publisher
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.ROCK_TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHANNEL: ${{ secrets.ROCK_TELEGRAM_CHANNEL }}
         run: |
           python agent_rock.py
