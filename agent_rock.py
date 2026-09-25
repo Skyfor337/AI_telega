@@ -84,7 +84,7 @@ def generate_rock_episode(recent_posts):
     text = clean_json_response(response.text)
 
     try:
-        result = json.loads(text)
+        result = parse_gemini_json(text)
     except json.JSONDecodeError as exc:
         raise RuntimeError(
             f"Gemini returned invalid JSON: {text}"
@@ -141,6 +141,59 @@ def escape_html(text):
         .replace("<", "&lt;")
         .replace(">", "&gt;")
     )
+
+
+def parse_gemini_json(text):
+    text = text.strip()
+
+    if text.startswith("```"):
+        lines = text.splitlines()
+
+        if lines and lines[0].strip().startswith("```"):
+            lines = lines[1:]
+
+        if lines and lines[-1].strip() == "```":
+            lines = lines[:-1]
+
+        text = "\n".join(lines).strip()
+
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        fixed = []
+        inside_string = False
+        escaped = False
+
+        for char in text:
+            if escaped:
+                fixed.append(char)
+                escaped = False
+                continue
+
+            if char == "\\":
+                fixed.append(char)
+                escaped = True
+                continue
+
+            if char == '"':
+                fixed.append(char)
+                inside_string = not inside_string
+                continue
+
+            if char == "\n" and inside_string:
+                fixed.append("\\n")
+                continue
+
+            if char == "\r" and inside_string:
+                continue
+
+            if ord(char) < 32 and inside_string:
+                fixed.append(f"\\u{ord(char):04x}")
+                continue
+
+            fixed.append(char)
+
+        return json.loads("".join(fixed))
 
 
 def main():
