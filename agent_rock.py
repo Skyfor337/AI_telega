@@ -121,14 +121,16 @@ def publish_episode(episode):
     title = episode["title"]
     post = episode["post"]
 
-    message = f"<b>{escape_html(title)}</b>\n\n{escape_html(post)}"
+    message = escape_html(post)
 
     sent = bot.send_message(
         TELEGRAM_CHANNEL,
         message,
         parse_mode="HTML",
         disable_web_page_preview=True,
-    )
+        )
+
+
 
     return sent
 
