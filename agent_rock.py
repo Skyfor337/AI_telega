@@ -29,7 +29,7 @@ if not TELEGRAM_BOT_TOKEN:
 if not TELEGRAM_CHANNEL:
     raise RuntimeError("TELEGRAM_CHANNEL is not set")
 
-MODEL_NAME = os.getenv("ROCK_MODEL", "gemini-3.8-flash")
+MODEL_NAME = os.getenv("ROCK_MODEL", "gemini-3.5-flash-lite")
 
 client = genai.Client(api_key=GEMINI_API_KEY)
 bot = telebot.TeleBot(TELEGRAM_BOT_TOKEN)
