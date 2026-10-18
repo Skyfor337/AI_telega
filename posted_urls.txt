@@ -127,3 +127,4 @@ https://habr.com/ru/news/1095620
 https://www.ixbt.com/news/2026/10/17/ii-protiv-bolezni-alcgeimera-sozdany-molekuliarnye-noznicy-s-uskoreniem-reakcii-v-10-milliardov-raz.html
 https://thenextweb.com/news/apple-meta-muse-spark-open-mac-studio
 https://habr.com/ru/news/1095676
+https://arstechnica.com/security/2026/10/openai-models-hacked-a-crypto-wallet-and-breached-more-websites
