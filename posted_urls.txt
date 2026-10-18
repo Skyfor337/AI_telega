@@ -129,3 +129,4 @@ https://thenextweb.com/news/apple-meta-muse-spark-open-mac-studio
 https://habr.com/ru/news/1095676
 https://arstechnica.com/security/2026/10/openai-models-hacked-a-crypto-wallet-and-breached-more-websites
 https://www.ixbt.com/news/2026/10/18/samyi-kompaktnyi-mini-pk-s-geforce-rtx-5080-zotac-magnus-one-ultra-poiavilsia-v-prodaze-po-cene-2647-dollarov.html
+https://www.ixbt.com/news/2026/10/18/claude-razgadal-25-letniuiu-zagadku-anb-i-obnaruzil-istocnik-sekretnyx-cisel-v-staroi-programme.html
