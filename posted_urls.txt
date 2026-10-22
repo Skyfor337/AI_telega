@@ -146,3 +146,4 @@ https://openai.com/index/openai-to-acquire-orchestra-bio
 https://habr.com/ru/companies/bothub/news/1097082
 https://openai.com/index/openai-models-google-cloud
 https://habr.com/ru/companies/bothub/news/1097562
+https://habr.com/ru/news/1097546
