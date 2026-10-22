@@ -148,3 +148,4 @@ https://openai.com/index/openai-models-google-cloud
 https://habr.com/ru/companies/bothub/news/1097562
 https://habr.com/ru/news/1097546
 https://3dnews.ru/1150274
+https://openai.com/index/uber-chatgpt-work-rollout
